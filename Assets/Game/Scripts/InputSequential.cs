@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InputSequential : MonoBehaviour
 {
-    #region Constants - Magic number'ları topladık
+    #region Constants
     private static readonly int[] FRIENDLY_STEPS =
     {
         1,
@@ -127,7 +127,6 @@ public class InputSequential : MonoBehaviour
             List<int> sequence = GeneratePatternSequence();
             int totalCount = sequence.Count;
 
-            // --- CONST & INPUT HESABI ---
             List<int> constIndices = new List<int> { 0, totalCount - 1 }; // her zaman baş & son
 
             // Input sayısı büyüdükçe ipucu serpiştir
@@ -149,7 +148,6 @@ public class InputSequential : MonoBehaviour
             if (constIndices.Count >= totalCount)
                 constIndices = new List<int> { 0, totalCount - 1 };
 
-            // --- NESNELERİ OLUŞTUR ---
             for (int i = 0; i < totalCount; i++)
             {
                 bool isConst = constIndices.Contains(i);
@@ -180,7 +178,6 @@ public class InputSequential : MonoBehaviour
         }
         else
         {
-            // Dynamic mode (değişmedi)
             var firstObj = Instantiate(numberImagePrefab, objectParent.transform);
             firstObj.GetComponentInChildren<TextMeshProUGUI>().text = startValue.ToString();
 
@@ -207,10 +204,8 @@ public class InputSequential : MonoBehaviour
         }
         else
         {
-            // Decorative attachments are optional in this edition.
         }
 
-        // Native TMP input fields use the system keyboard.
     }
 
     private List<int> GeneratePatternSequence()
@@ -235,7 +230,6 @@ public class InputSequential : MonoBehaviour
             sequence.Add(val);
         }
 
-        // güvenlik
         sequence[0] = startValue;
         sequence[sequence.Count - 1] = endValue;
 
@@ -250,7 +244,6 @@ public class InputSequential : MonoBehaviour
         if (isRandomMode)
             isReverseMode = Random.value > 0.5f;
 
-        // --- 50+ LEVEL SABİT ZORLUK ---
         if (clampedIndex >= CAP_LEVEL)
         {
             inputFieldCount = MAX_INPUT_FIELD_COUNT;
@@ -262,8 +255,6 @@ public class InputSequential : MonoBehaviour
             );
             return;
         }
-
-        // --- NORMAL LEVEL HESAPLAMASI ---
 
         int groupIndex = clampedIndex / BLOCK_SIZE;
         int inputFieldCountMin = 1 + groupIndex;
@@ -307,24 +298,19 @@ public class InputSequential : MonoBehaviour
         int totalSteps = totalElements - 1;
         int rangeSize = (int)(numberRange.y - numberRange.x);
 
-        // 1. Step calculation
         int idealStep = Mathf.Max(1, Mathf.RoundToInt(rangeSize / (totalSteps * RANGE_MULTIPLIER)));
         step = ChooseFriendlyStep(idealStep);
 
-        // 2. Sequence span calculation
         int sequenceSpan = step * totalSteps;
 
-        // 3. Adjust step if needed
         while (sequenceSpan > rangeSize && step > 1)
         {
             step = ChooseSmallerFriendlyStep(step);
             sequenceSpan = step * totalSteps;
         }
 
-        // 4. Calculate start/end values with better distribution
         CalculateStartEndValues(sequenceSpan, rangeSize);
 
-        // 5. Safety clamps
         ApplySafetyClamps(sequenceSpan);
 
         Debug.Log(
@@ -412,7 +398,6 @@ public class InputSequential : MonoBehaviour
         return FRIENDLY_STEPS[FRIENDLY_STEPS.Length - 1];
     }
 
-    // Input kontrol ve global tutarlılık
     private void CheckSequentialDynamicInput(TMP_InputField currentField)
     {
         if (currentField.readOnly) return;
@@ -592,7 +577,6 @@ public class InputSequential : MonoBehaviour
             RejectInput(field);
         }
 
-        // Hepsi doldu mu?
         bool allCorrect = true;
         foreach (var f in inputFields)
         {
@@ -669,15 +653,12 @@ public class InputSequential : MonoBehaviour
             Debug.Log("EventMode Aktif, tren animasyonu + win sesi aynı anda başlıyor");
             StartCoroutine(PlayTrainAnimation());
         }
-        // SoundFX nesnesi ve AudioSource bileşeni var mı kontrol et
         if (SoundFX != null)
         {
             var audioSource = SoundFX.GetComponent<AudioSource>();
 
-            // Eğer AudioSource varsa ve bir ses çalıyorsa, bitmesini bekle
             if (audioSource != null && audioSource.isPlaying)
             {
-                // isPlaying false olana kadar her karede bekle
                 while (audioSource.isPlaying)
                 {
                     yield return null;
