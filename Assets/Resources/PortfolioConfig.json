@@ -1,0 +1,58 @@
+{
+  "directory": "STEM-Counting",
+  "repo": "artis-azalis",
+  "title": "Counting Patterns",
+  "turkish": "Ritmik Sayma",
+  "kind": "SEQUENCE",
+  "cls": "InputSequential",
+  "modes": [
+    {
+      "scene": "RitmikSaymaArtis",
+      "title": "Artan Sayılar",
+      "english": "Ascending patterns",
+      "stemGameType": 2,
+      "isRandom": 0,
+      "isDynamicMode": 0,
+      "isReverseMode": 0,
+      "targetType": 1,
+      "cardMatchGameTargetType": 0,
+      "bubbleGameMode": 0,
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "operators": []
+    },
+    {
+      "scene": "RitmikSaymaAzalis",
+      "title": "Azalan Sayılar",
+      "english": "Descending patterns",
+      "stemGameType": 2,
+      "isRandom": 0,
+      "isDynamicMode": 0,
+      "isReverseMode": 1,
+      "targetType": 1,
+      "cardMatchGameTargetType": 0,
+      "bubbleGameMode": 0,
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "operators": []
+    },
+    {
+      "scene": "RitmikSaymaRandom",
+      "title": "Karışık Yön",
+      "english": "Mixed direction",
+      "stemGameType": 2,
+      "isRandom": 1,
+      "isDynamicMode": 0,
+      "isReverseMode": 0,
+      "targetType": 1,
+      "cardMatchGameTargetType": 0,
+      "bubbleGameMode": 0,
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "operators": []
+    }
+  ]
+}
